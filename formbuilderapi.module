@@ -1,0 +1,193 @@
+
+<?php
+  //$Id$
+    /**
+     @file
+     * Modulo para crear y mostrar formularios
+     * 
+     */
+function formbuilderapi_menu() {
+ $items = array();
+ $items['formbuilderapi/form'] = array(
+ 'title' => t('Form Builder'),
+ 'page callback' => 'formbuilderapi_form',
+ 'access arguments' => array('access content'),
+ 'description' => t('Contenido del Form'),
+ 'type' => MENU_CALLBACK,
+ );
+ return $items;
+}
+
+ 
+//Puedes llamar a esta funcion poniendo la siguiente URL :"http://yourhost/nesmodel/form"
+
+
+function formbuilderapi_form() {
+
+    //Puedes modificar el Form que quieres usar poniendo el nombre de su funcion dentro de drupal_get_form('FORM');
+return drupal_get_form('formbuilderapi_form3');
+
+}
+
+
+function formbuilderapi_my_form($form_state) {
+$form['description'] = array(
+    '#type' => 'item',
+    '#title' => t('Formulario simple'),
+    
+);
+ $form['name'] = array(
+ '#type' => 'textfield',
+ '#title' => t('Name'),
+ );
+ 
+ 
+ $form['submit'] = array(
+     '#type' => 'submit',
+     '#title' => t('Enviar'),
+ );
+ 
+ return $form;
+}
+
+function formbuilderapi_form2($form,&$form_state){
+    $form['description'] = array(
+        '#type' => 'item',
+        '#title' => t('Form2'),
+    );
+    
+    $form['name'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Nombre'),
+    );
+    
+    $form['name']['first'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Nombre'),
+       
+    );
+    $form['name']['last'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Apellido'),
+       
+    );
+    
+    $form['submit'] = array(
+    '#type' => 'submit', 
+    '#value' => 'Enviar',
+  );
+  return $form;
+   
+}
+
+function formbuilderapi_form3($form,&$form_state){
+    $form['description'] =array(
+        '#type' => 'item',
+        '#title' => t('Form 3'),
+    );   
+    
+    $form['name'] = array(
+        '#type' => 'fieldset',
+        '#title'=> t('Nombre'),
+        '#collapsible' => TRUE,
+        '#collapsible' => FALSE,
+        );
+    
+    $form['name']['first'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Nombre'),
+        '#required' => TRUE,
+        );
+    $form['name']['last'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Apellido'),
+        '#required' => TRUE,
+        );
+    
+    $form['submit'] = array(
+    '#type' => 'submit', 
+    '#value' => 'Enviar',
+  );
+  return $form;
+}
+
+function formbuilderapi_form4($form, &$form_state) {
+  $form['description'] = array(
+    '#type' => 'item', 
+    '#title' => t('Form 4'), 
+    '#description' => t('Form con Description'),
+  );
+  $form['name'] = array(
+    '#type' => 'fieldset', 
+    '#title' => t('Nombre'), 
+    '#collapsible' => TRUE, 
+    '#collapsed' => FALSE,
+  );
+
+  $form['name']['first'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('First name'), 
+    '#required' => TRUE, 
+    '#default_value' => "Alfonso",  
+    '#description' => "Introduce tu Nombre.",  
+    '#size' => 20, 
+    '#maxlength' => 20, 
+  );
+  $form['name']['last'] = array(
+    '#type' => 'textfield', 
+    '#title' => t('Apellido'), 
+    '#required' => TRUE,
+  );
+  $form['submit'] = array(
+    '#type' => 'submit', 
+    '#value' => 'Enviar',
+  );
+  return $form;
+}
+
+function formbuilderapi_form5($form, &$form_state) {
+  $form['description'] = array(
+    '#type' => 'item',
+    '#title' => t('Form 5'),
+  );
+
+  $form['name'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Nombre'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  $form['name']['first'] = array(
+    '#type' => 'textfield',
+    '#title' => t('First name'),
+    '#required' => TRUE,
+    '#default_value' => "Nombre",
+    '#description' => "Introduce tu Nombre.",
+    '#size' => 20,
+    '#maxlength' => 20,
+  );
+  $form['name']['last'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Apellido'),
+    '#required' => TRUE,
+  );
+
+  $form['year_of_birth'] = array(
+    '#type' => 'textfield',
+    '#title' => "año de nacimiento",
+    '#description' => '',
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Enviar',
+  );
+  return $form;
+}
+
+function formbuilderapi_form5_validate($form, &$form_state) {
+  $year_of_birth = $form_state['values']['year_of_birth'];
+  if ($year_of_birth && ($year_of_birth < 1900 || $year_of_birth > 2000)) {
+    form_set_error('year_of_birth', 'Introduce un año entre el 1900 y 2000.');
+  }
+}
