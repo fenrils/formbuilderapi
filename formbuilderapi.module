@@ -19,7 +19,7 @@ function formbuilderapi_menu() {
 }
 
  
-//Puedes llamar a esta funcion poniendo la siguiente URL :"http://yourhost/nesmodel/form"
+//Puedes llamar a esta funcion poniendo la siguiente URL :"http://yourhost/formbuilderapi/form"
 
 
 function formbuilderapi_form() {
