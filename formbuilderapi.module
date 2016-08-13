@@ -174,7 +174,7 @@ function formbuilderapi_form5($form, &$form_state) {
 
   $form['year_of_birth'] = array(
     '#type' => 'textfield',
-    '#title' => "año de nacimiento",
+    '#title' => "aï¿½o de nacimiento",
     '#description' => '',
   );
 
@@ -188,6 +188,59 @@ function formbuilderapi_form5($form, &$form_state) {
 function formbuilderapi_form5_validate($form, &$form_state) {
   $year_of_birth = $form_state['values']['year_of_birth'];
   if ($year_of_birth && ($year_of_birth < 1900 || $year_of_birth > 2000)) {
-    form_set_error('year_of_birth', 'Introduce un año entre el 1900 y 2000.');
+    form_set_error('year_of_birth', 'Introduce un aï¿½o entre el 1900 y 2000.');
   }
 }
+
+function formbuilderapi_form6($form, &$form_state){
+    $form['description'] = array(
+    '#type' => 'item',
+    '#title' => t('Manejador de Submit'),
+  );
+  $form['name'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Nombre'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  $form['name']['first'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Nombre'),
+    '#required' => TRUE,
+    '#default_value' => "Nombre",
+    '#description' => "Introduce tu nombre.",
+    '#size' => 20,
+    '#maxlength' => 20,
+  );
+  $form['name']['last'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Apellido'),
+    '#required' => TRUE,
+  );
+  $form['year_of_birth'] = array(
+    '#type' => 'textfield',
+    '#title' => "ANYO DE NACIMIENTO",
+    '#description' => 'Formato YYYY',
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Enviar',
+  );
+  return $form;
+}
+
+function formbuilderapi_form6_validate($form, &$form_state){
+    $year_of_birth = $form_state['values']['year_of_birth'];
+    if($year_of_birth && ($year_of_birth < 1900 || $year_of_birth > 2000)){
+     form_set_error('year_of_birth','Introduce una fecha entre el 1900 y el 2000.');
+    }
+}
+
+function formbuilderapi_form6_submit($form, &$form_state){
+    drupal_set_message(t('Nombre : "@first" , Apellido : "@last" Anyo : @year_of_birth',
+           array('@first' => $form_state['values']['first'],
+                  '@last' => $form_state['values']['last'],
+                  '@year_of_birth' => $form_state['values']['year_of_birth'])));
+}
+    
+} 
